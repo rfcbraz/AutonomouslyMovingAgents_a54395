@@ -122,10 +122,23 @@ public class Bot : MonoBehaviour
          Seek(info.point + chosenDir.normalized * 2);
     }
 
-
+    bool CanSeeTarget()
+    {
+        RaycastHit rayCastInfo;
+        Vector3 rayToTarget = target.transform.position - this.transform.position;
+        if(Physics.Raycast(this.transform.position, rayToTarget, out rayCastInfo))
+        {
+            if(rayCastInfo.transform.gameObject.tag == "cop")
+                {
+                    return true;
+                }
+        }
+       return false;
+    }
 
     void Update()
     {
+        if(CanSeeTarget())
             CleverHide();
    }
 }
