@@ -154,10 +154,23 @@ public class Bot : MonoBehaviour
         cooldown = false;
     }
 
+    bool TargetInRange()
+    {
+        if(Vector3.Distance(this.transform.position, target.transform.position) < 10)
+            return true;
+        return false;
+    }
+
+
     void Update()
     {
         if (!cooldown)
         {        
+            if (!TargetInRange())
+            {
+                Wander();
+            }
+            else
             if (CanSeeTarget() && CanSeeMe())
             {
                 CleverHide();
